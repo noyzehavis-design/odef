@@ -1,0 +1,204 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* next-themes puts `dark` / `light` on <html>. Dark is the default. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens (see "שפה עיצובית" in docs/SPEC.md).
+ * Every color in the app comes from here. Don't hardcode hex values in components.
+ * Light theme is :root, dark theme overrides under .dark.
+ */
+:root {
+  --radius: 1.25rem; /* 20px, cards go up to 24px (rounded-3xl) */
+
+  /* Surfaces */
+  --background: #f6f6f9;
+  --foreground: #14151a;
+  --card: #ffffff;
+  --card-foreground: #14151a;
+  --popover: #ffffff;
+  --popover-foreground: #14151a;
+  --muted: #eeeef3;
+  --muted-foreground: #6b6e7b;
+  --border: #e3e4ea;
+  --input: #dcdde5;
+
+  /* Brand: electric violet */
+  --primary: #6a59f5;
+  --primary-foreground: #ffffff;
+  --ring: #7c6cff;
+
+  --secondary: #ecebff;
+  --secondary-foreground: #3b2fb8;
+  --accent: #efeef8;
+  --accent-foreground: #14151a;
+
+  /* Status colors */
+  --success: #0f9f74; /* income, all good */
+  --success-foreground: #ffffff;
+  --warning: #e07a12; /* approaching a limit */
+  --warning-foreground: #ffffff;
+  --danger: #e0445a; /* over budget, suspicious charge */
+  --danger-foreground: #ffffff;
+  --destructive: var(--danger);
+  --info: #3b82f6;
+
+  /* Category palette (max 8, fixed per category) */
+  --cat-1: #7c6cff;
+  --cat-2: #2bc8a0;
+  --cat-3: #ff8a3d;
+  --cat-4: #ff5c8a;
+  --cat-5: #3fa9ff;
+  --cat-6: #f5c400;
+  --cat-7: #b86bff;
+  --cat-8: #8a93a6;
+
+  /* Floating nav */
+  --nav: rgb(255 255 255 / 0.82);
+}
+
+.dark {
+  --background: #0e0f13;
+  --foreground: #f2f1ee;
+  --card: #17191f;
+  --card-foreground: #f2f1ee;
+  --popover: #1c1e25;
+  --popover-foreground: #f2f1ee;
+  --muted: #1f2129;
+  --muted-foreground: #8d909c;
+  --border: #262832;
+  --input: #2c2f3a;
+
+  --primary: #7c6cff;
+  --primary-foreground: #ffffff;
+  --ring: #9a8dff;
+
+  --secondary: #23213a;
+  --secondary-foreground: #c9c2ff;
+  --accent: #21232b;
+  --accent-foreground: #f2f1ee;
+
+  --success: #3ee0a8;
+  --success-foreground: #06281d;
+  --warning: #ffa94d;
+  --warning-foreground: #2b1600;
+  --danger: #ff6b7d;
+  --danger-foreground: #2d070d;
+  --info: #6cb4ff;
+
+  --nav: rgb(23 25 31 / 0.82);
+}
+
+@theme inline {
+  --font-sans: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-info: var(--info);
+  --color-nav: var(--nav);
+
+  --color-cat-1: var(--cat-1);
+  --color-cat-2: var(--cat-2);
+  --color-cat-3: var(--cat-3);
+  --color-cat-4: var(--cat-4);
+  --color-cat-5: var(--cat-5);
+  --color-cat-6: var(--cat-6);
+  --color-cat-7: var(--cat-7);
+  --color-cat-8: var(--cat-8);
+
+  --radius-sm: calc(var(--radius) - 10px);
+  --radius-md: calc(var(--radius) - 8px);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 2px);
+  --radius-3xl: calc(var(--radius) + 4px);
+
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern";
+  }
+  /* Stops the iOS bounce from showing a white strip behind the app */
+  html,
+  body {
+    background-color: var(--background);
+  }
+}
+
+@layer utilities {
+  /* Safe areas for the installed PWA (notch, home indicator) */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bottom-safe-4 {
+    bottom: calc(env(safe-area-inset-bottom) + 1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
